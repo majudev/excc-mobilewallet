@@ -98,8 +98,8 @@
   revision = "e0ce731efe2e57b25047d1983aab60e2c5f38a39"
 
 [[projects]]
-  branch = "badgerdb"
-  digest = "1:f297f8fb56dcd2838603d4e4cfb2ba32a807791fedade0324a9ba558370237f8"
+  branch = "build"
+  digest = "1:8c3d7ffcf6893e2f515ac7fd56ea6e2728e2ca96f01a3d35b9e595753d86c1f6"
   name = "github.com/decred/dcrwallet"
   packages = [
     "chain",
@@ -131,7 +131,7 @@
     "walletseed",
   ]
   pruneopts = ""
-  revision = "29956e49d4c03c8130356cefd39029cb03e8c2b7"
+  revision = "66e7a1b3523b0391128f561577ce336e03d26239"
   source = "github.com/raedahgroup/dcrwallet"
 
 [[projects]]
@@ -258,6 +258,7 @@
     "github.com/decred/dcrd/chaincfg",
     "github.com/decred/dcrd/chaincfg/chainhash",
     "github.com/decred/dcrd/connmgr",
+    "github.com/decred/dcrd/dcrec",
     "github.com/decred/dcrd/dcrjson",
     "github.com/decred/dcrd/dcrutil",
     "github.com/decred/dcrd/hdkeychain",
