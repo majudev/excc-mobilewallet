@@ -17,26 +17,26 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/decred/dcrd/addrmgr"
-	stake "github.com/decred/dcrd/blockchain/stake"
-	"github.com/decred/dcrd/chaincfg"
-	chainhash "github.com/decred/dcrd/chaincfg/chainhash"
-	"github.com/decred/dcrd/dcrec"
-	"github.com/decred/dcrd/dcrjson"
-	"github.com/decred/dcrd/dcrutil"
-	"github.com/decred/dcrd/hdkeychain"
-	"github.com/decred/dcrd/txscript"
-	"github.com/decred/dcrd/wire"
-	"github.com/decred/dcrwallet/chain"
-	"github.com/decred/dcrwallet/errors"
-	"github.com/decred/dcrwallet/loader"
-	"github.com/decred/dcrwallet/netparams"
-	"github.com/decred/dcrwallet/p2p"
-	"github.com/decred/dcrwallet/spv"
-	"github.com/decred/dcrwallet/wallet"
-	"github.com/decred/dcrwallet/wallet/txauthor"
-	"github.com/decred/dcrwallet/wallet/txrules"
-	walletseed "github.com/decred/dcrwallet/walletseed"
+	"github.com/exccoin/exccd/addrmgr"
+	stake "github.com/exccoin/exccd/blockchain/stake"
+	"github.com/exccoin/exccd/chaincfg"
+	chainhash "github.com/exccoin/exccd/chaincfg/chainhash"
+	"github.com/exccoin/exccd/exccec"
+	"github.com/exccoin/exccd/exccjson"
+	"github.com/exccoin/exccd/exccutil"
+	"github.com/exccoin/exccd/hdkeychain"
+	"github.com/exccoin/exccd/txscript"
+	"github.com/exccoin/exccd/wire"
+	"github.com/exccoin/exccwallet/chain"
+	"github.com/exccoin/exccwallet/errors"
+	"github.com/exccoin/exccwallet/loader"
+	"github.com/exccoin/exccwallet/netparams"
+	"github.com/exccoin/exccwallet/p2p"
+	"github.com/exccoin/exccwallet/spv"
+	"github.com/exccoin/exccwallet/wallet"
+	"github.com/exccoin/exccwallet/wallet/txauthor"
+	"github.com/exccoin/exccwallet/wallet/txrules"
+	walletseed "github.com/exccoin/exccwallet/walletseed"
 	"github.com/decred/slog"
 )
 
@@ -72,7 +72,7 @@ func NewLibWallet(homeDir string, dbDriver string, netType string) *LibWallet {
 		activeNet: activeNet,
 	}
 	errors.Separator = ":: "
-	initLogRotator(filepath.Join(homeDir, "/logs/"+netType+"/dcrwallet.log"))
+	initLogRotator(filepath.Join(homeDir, "/logs/"+netType+"/exccwallet.log"))
 	return lw
 }
 
@@ -177,8 +177,8 @@ func contextWithShutdownCancel(ctx context.Context) context.Context {
 	return ctx
 }
 
-func decodeAddress(a string, params *chaincfg.Params) (dcrutil.Address, error) {
-	addr, err := dcrutil.DecodeAddress(a)
+func decodeAddress(a string, params *chaincfg.Params) (exccutil.Address, error) {
+	addr, err := exccutil.DecodeAddress(a)
 	if err != nil {
 		return nil, err
 	}
@@ -659,7 +659,7 @@ func (lw *LibWallet) GetAccountName(account int32) string {
 }
 
 func (lw *LibWallet) GetAccountByAddress(address string) string {
-	addr, err := dcrutil.DecodeAddress(address)
+	addr, err := exccutil.DecodeAddress(address)
 	if err != nil {
 		log.Error(err)
 		return "Address decode error"
@@ -901,7 +901,7 @@ func decodeTxOutputs(mtx *wire.MsgTx, chainParams *chaincfg.Params) []DecodedOut
 	txType := stake.DetermineTxType(mtx)
 	for i, v := range mtx.TxOut {
 
-		var addrs []dcrutil.Address
+		var addrs []exccutil.Address
 		var encodedAddrs []string
 		var scriptClass txscript.ScriptClass
 		if (txType == stake.TxTypeSStx) && (stake.IsStakeSubmissionTxOut(i)) {
@@ -1010,11 +1010,11 @@ func (lw *LibWallet) AddressForAccount(account int32) (string, error) {
 }
 
 func AmountCoin(amount int64) float64 {
-	return dcrutil.Amount(amount).ToCoin()
+	return exccutil.Amount(amount).ToCoin()
 }
 
 func AmountAtom(f float64) int64 {
-	amount, err := dcrutil.NewAmount(f)
+	amount, err := exccutil.NewAmount(f)
 	if err != nil {
 		log.Error(err)
 		return -1
@@ -1036,7 +1036,7 @@ func (src *txChangeSource) ScriptSize() int {
 }
 
 func makeTxChangeSource(destAddr string) (*txChangeSource, error) {
-	addr, err := dcrutil.DecodeAddress(destAddr)
+	addr, err := exccutil.DecodeAddress(destAddr)
 	if err != nil {
 		log.Error(err)
 		return nil, err
@@ -1055,7 +1055,7 @@ func makeTxChangeSource(destAddr string) (*txChangeSource, error) {
 
 func (lw *LibWallet) ConstructTransaction(destAddr string, amount int64, srcAccount int32, requiredConfirmations int32, sendAll bool) (*UnsignedTransaction, error) {
 	// output destination
-	addr, err := dcrutil.DecodeAddress(destAddr)
+	addr, err := exccutil.DecodeAddress(destAddr)
 	if err != nil {
 		log.Error(err)
 		return nil, err
@@ -1108,9 +1108,9 @@ func (lw *LibWallet) ConstructTransaction(destAddr string, amount int64, srcAcco
 		return nil, err
 	}
 
-	var totalOutput dcrutil.Amount
+	var totalOutput exccutil.Amount
 	for _, txOut := range outputs {
-		totalOutput += dcrutil.Amount(txOut.Value)
+		totalOutput += exccutil.Amount(txOut.Value)
 	}
 
 	return &UnsignedTransaction{
@@ -1134,7 +1134,7 @@ func (lw *LibWallet) SendTransaction(privPass []byte, destAddr string, amount in
 		}
 	}()
 	// output destination
-	addr, err := dcrutil.DecodeAddress(destAddr)
+	addr, err := exccutil.DecodeAddress(destAddr)
 	if err != nil {
 		log.Error(err)
 		return nil, err
@@ -1326,9 +1326,9 @@ func (lw *LibWallet) SignMessage(passphrase []byte, address string, message stri
 
 	var sig []byte
 	switch a := addr.(type) {
-	case *dcrutil.AddressSecpPubKey:
-	case *dcrutil.AddressPubKeyHash:
-		if a.DSA(a.Net()) != dcrec.STEcdsaSecp256k1 {
+	case *exccutil.AddressSecpPubKey:
+	case *exccutil.AddressPubKeyHash:
+		if a.DSA(a.Net()) != exccec.STEcdsaSecp256k1 {
 			return nil, errors.New(ErrInvalidAddress)
 		}
 	default:
@@ -1346,7 +1346,7 @@ func (lw *LibWallet) SignMessage(passphrase []byte, address string, message stri
 func (lw *LibWallet) VerifyMessage(address string, message string, signatureBase64 string) (bool, error) {
 	var valid bool
 
-	addr, err := dcrutil.DecodeAddress(address)
+	addr, err := exccutil.DecodeAddress(address)
 	if err != nil {
 		return false, translateError(err)
 	}
@@ -1359,9 +1359,9 @@ func (lw *LibWallet) VerifyMessage(address string, message string, signatureBase
 	// Addresses must have an associated secp256k1 private key and therefore
 	// must be P2PK or P2PKH (P2SH is not allowed).
 	switch a := addr.(type) {
-	case *dcrutil.AddressSecpPubKey:
-	case *dcrutil.AddressPubKeyHash:
-		if a.DSA(a.Net()) != dcrec.STEcdsaSecp256k1 {
+	case *exccutil.AddressSecpPubKey:
+	case *exccutil.AddressPubKeyHash:
+		if a.DSA(a.Net()) != exccec.STEcdsaSecp256k1 {
 			return false, errors.New(ErrInvalidAddress)
 		}
 	default:
@@ -1387,18 +1387,18 @@ func (lw *LibWallet) CallJSONRPC(method string, args string, address string, use
 	}
 	// Attempt to create the appropriate command using the arguments
 	// provided by the user.
-	cmd, err := dcrjson.NewCmd(method, params...)
+	cmd, err := exccjson.NewCmd(method, params...)
 	if err != nil {
 		// Show the error along with its error code when it's a
-		// dcrjson.Error as it reallistcally will always be since the
+		// exccjson.Error as it reallistcally will always be since the
 		// NewCmd function is only supposed to return errors of that
 		// type.
-		if jerr, ok := err.(dcrjson.Error); ok {
+		if jerr, ok := err.(exccjson.Error); ok {
 			log.Errorf("%s command: %v (code: %s)\n",
 				method, err, jerr.Code)
 			return "", err
 		}
-		// The error is not a dcrjson.Error and this really should not
+		// The error is not a exccjson.Error and this really should not
 		// happen.  Nevertheless, fallback to just showing the error
 		// if it should happen due to a bug in the package.
 		log.Errorf("%s command: %v\n", method, err)
@@ -1407,7 +1407,7 @@ func (lw *LibWallet) CallJSONRPC(method string, args string, address string, use
 
 	// Marshal the command into a JSON-RPC byte slice in preparation for
 	// sending it to the RPC server.
-	marshalledJSON, err := dcrjson.MarshalCmd("1.0", 1, cmd)
+	marshalledJSON, err := exccjson.MarshalCmd("1.0", 1, cmd)
 	if err != nil {
 		log.Error(err)
 		return "", err
