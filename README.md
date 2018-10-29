@@ -1,8 +1,6 @@
-# mobilewallet - Dcrwallet Mobile
+# excc-mobilewallet - EXCC wallet Mobile
 
-[![Build Status](https://travis-ci.org/raedahgroup/mobilewallet.svg?branch=master)](https://travis-ci.org/raedahgroup/mobilewallet)
-
-A Decred wallet library for mobile devices built from [dcrwallet](https://github.com/decred/dcrwallet)
+A Decred wallet library for mobile devices built from [exccwallet](https://github.com/exccoin/exccwallet)
 
 ## Build Dependencies
 
