@@ -11,6 +11,84 @@
 
 [[projects]]
   branch = "master"
+  digest = "1:0af691762125fa5465f5a671280fa3883efc0e8b40d85821f9cd97ed39a23ae7"
+  name = "github.com/EXCCoin/base58"
+  packages = ["."]
+  pruneopts = ""
+  revision = "e1a805ee5d9f5e64352b9b509d18413991cceffb"
+
+[[projects]]
+  branch = "master"
+  digest = "1:5cff711c7611bff80fa0a31958623e7f0ce4721a8e3d6fa6797b06566cc17331"
+  name = "github.com/EXCCoin/exccd"
+  packages = [
+    "addrmgr",
+    "blockchain",
+    "blockchain/indexers",
+    "blockchain/internal/dbnamespace",
+    "blockchain/internal/progresslog",
+    "blockchain/stake",
+    "blockchain/stake/internal/dbnamespace",
+    "blockchain/stake/internal/ticketdb",
+    "blockchain/stake/internal/tickettreap",
+    "cequihash",
+    "chaincfg",
+    "chaincfg/chainec",
+    "chaincfg/chainhash",
+    "database",
+    "exccec/edwards",
+    "exccec/secp256k1",
+    "exccec/secp256k1/schnorr",
+    "exccjson",
+    "exccutil",
+    "gcs",
+    "gcs/blockcf",
+    "hdkeychain",
+    "mempool",
+    "mining",
+    "rpcclient",
+    "txscript",
+    "wire",
+  ]
+  pruneopts = ""
+  revision = "e377db154d35b95210ed287fb4720be3c87cb43b"
+
+[[projects]]
+  digest = "1:a9e9e33ef18b8e5fd64955b26cee58366e837286b7ec68a7bee5d16f6c4c2cd7"
+  name = "github.com/EXCCoin/exccwallet"
+  packages = [
+    "apperrors",
+    "chain",
+    "internal/helpers",
+    "internal/zero",
+    "loader",
+    "netparams",
+    "pgpwordlist",
+    "snacl",
+    "ticketbuyer",
+    "wallet",
+    "wallet/internal/txsizes",
+    "wallet/txauthor",
+    "wallet/txrules",
+    "wallet/udb",
+    "walletdb",
+    "walletdb/bdb",
+    "walletseed",
+  ]
+  pruneopts = ""
+  revision = "8960499c65a0ef0fe316bf0ac702e034609dc9f6"
+  version = "v1.0.0"
+
+[[projects]]
+  digest = "1:14facdbf12ed0c3eb5670b23533ade364315060cb3aa654080023659df57cfef"
+  name = "github.com/aead/siphash"
+  packages = ["."]
+  pruneopts = ""
+  revision = "83563a290f60225eb120d724600b9690c3fb536f"
+  version = "v1.0.1"
+
+[[projects]]
+  branch = "master"
   digest = "1:7c95e6ada3cb4c4034a75f88a137400dfe7cbd5823c66b2ec4b014018b537ff7"
   name = "github.com/agl/ed25519"
   packages = [
@@ -30,11 +108,27 @@
 
 [[projects]]
   branch = "master"
+  digest = "1:30d4a548e09bca4a0c77317c58e7407e2a65c15325e944f9c08a7b7992f8a59e"
+  name = "github.com/btcsuite/btclog"
+  packages = ["."]
+  pruneopts = ""
+  revision = "84c8d2346e9fc8c7b947e243b9c24e6df9fd206a"
+
+[[projects]]
+  branch = "master"
   digest = "1:422f38d57f1bc0fdc34f26d0f1026869a3710400b09b5478c9288efa13573cfa"
   name = "github.com/btcsuite/go-socks"
   packages = ["socks"]
   pruneopts = ""
   revision = "4720035b7bfd2a9bb130b1c184f8bbe41b6f0d0f"
+
+[[projects]]
+  branch = "master"
+  digest = "1:dfc248d5e6e1582fdec83796d3d1d451aa6cae773c4e4ba1dac2838caef6d381"
+  name = "github.com/btcsuite/websocket"
+  packages = ["."]
+  pruneopts = ""
+  revision = "31079b6807923eb23992c421b114992b95131b55"
 
 [[projects]]
   branch = "master"
@@ -109,9 +203,7 @@
     "internal/zero",
     "loader",
     "lru",
-    "netparams",
     "p2p",
-    "pgpwordlist",
     "spv",
     "ticketbuyer",
     "ticketbuyer/v2",
@@ -128,7 +220,6 @@
     "wallet/txauthor",
     "wallet/txrules",
     "wallet/udb",
-    "walletseed",
   ]
   pruneopts = ""
   revision = "f5856c9c1ed537748d0c01136927067c47845866"
@@ -182,12 +273,12 @@
   version = "v1.4.0"
 
 [[projects]]
+  branch = "master"
   digest = "1:5e231a323e6e25870d122520aaf1b5ccaf61714e4c72908ecea0649675eb6917"
   name = "github.com/jrick/bitset"
   packages = ["."]
   pruneopts = ""
   revision = "06eae37cdf93c699c0503c23f998167ce841974c"
-  version = "v1.0.0"
 
 [[projects]]
   digest = "1:80178c385273ade9d14d523f23397468a70a3c14f9ab2b1b8c52cf35dbebe03d"
@@ -196,6 +287,14 @@
   pruneopts = ""
   revision = "a93b200c26cbae3bb09dd0dc2c7c7fe1468a034a"
   version = "v1.0.0"
+
+[[projects]]
+  branch = "master"
+  digest = "1:5de5428d9eeee1371f55a0d536cdb3a75a1c9677a317ea54f5beb5c662fe065b"
+  name = "github.com/mattn/go-pointer"
+  packages = ["."]
+  pruneopts = ""
+  revision = "49522c3f37914a12a6813caf41f4a9e84d39ca0a"
 
 [[projects]]
   digest = "1:7365acd48986e205ccb8652cc746f09c8b7876030d53710ea6ef7d0bd0dcd7ca"
@@ -249,35 +348,52 @@
   pruneopts = ""
   revision = "b09afc3d579e346c4a7e4705953acaf6f9e551bd"
 
+[[projects]]
+  digest = "1:5acd3512b047305d49e8763eef7ba423901e85d5dd2fd1e71778a0ea8de10bd4"
+  name = "golang.org/x/text"
+  packages = [
+    "internal/gen",
+    "internal/triegen",
+    "internal/ucd",
+    "transform",
+    "unicode/cldr",
+    "unicode/norm",
+  ]
+  pruneopts = ""
+  revision = "f21a4dfb5e38f5895301dc265a8def02365cc3d0"
+  version = "v0.3.0"
+
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
-    "github.com/decred/dcrd/addrmgr",
-    "github.com/decred/dcrd/blockchain/stake",
-    "github.com/decred/dcrd/chaincfg",
-    "github.com/decred/dcrd/chaincfg/chainhash",
+    "github.com/EXCCoin/exccd/addrmgr",
+    "github.com/EXCCoin/exccd/blockchain/stake",
+    "github.com/EXCCoin/exccd/chaincfg",
+    "github.com/EXCCoin/exccd/chaincfg/chainhash",
+    "github.com/EXCCoin/exccd/exccjson",
+    "github.com/EXCCoin/exccd/exccutil",
+    "github.com/EXCCoin/exccd/hdkeychain",
+    "github.com/EXCCoin/exccd/txscript",
+    "github.com/EXCCoin/exccd/wire",
+    "github.com/EXCCoin/exccwallet/chain",
+    "github.com/EXCCoin/exccwallet/loader",
+    "github.com/EXCCoin/exccwallet/netparams",
+    "github.com/EXCCoin/exccwallet/wallet",
+    "github.com/EXCCoin/exccwallet/wallet/txauthor",
+    "github.com/EXCCoin/exccwallet/wallet/txrules",
+    "github.com/EXCCoin/exccwallet/walletseed",
     "github.com/decred/dcrd/connmgr",
-    "github.com/decred/dcrd/dcrec",
     "github.com/decred/dcrd/dcrjson",
-    "github.com/decred/dcrd/dcrutil",
-    "github.com/decred/dcrd/hdkeychain",
     "github.com/decred/dcrd/rpcclient",
-    "github.com/decred/dcrd/txscript",
-    "github.com/decred/dcrd/wire",
     "github.com/decred/dcrwallet/chain",
-    "github.com/decred/dcrwallet/errors",
     "github.com/decred/dcrwallet/loader",
-    "github.com/decred/dcrwallet/netparams",
     "github.com/decred/dcrwallet/p2p",
     "github.com/decred/dcrwallet/spv",
     "github.com/decred/dcrwallet/ticketbuyer",
     "github.com/decred/dcrwallet/ticketbuyer/v2",
     "github.com/decred/dcrwallet/wallet",
-    "github.com/decred/dcrwallet/wallet/txauthor",
-    "github.com/decred/dcrwallet/wallet/txrules",
     "github.com/decred/dcrwallet/wallet/udb",
-    "github.com/decred/dcrwallet/walletseed",
     "github.com/decred/slog",
     "github.com/jrick/logrotate/rotator",
   ]

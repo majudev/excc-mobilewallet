@@ -17,26 +17,26 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/exccoin/exccd/addrmgr"
-	stake "github.com/exccoin/exccd/blockchain/stake"
-	"github.com/exccoin/exccd/chaincfg"
-	chainhash "github.com/exccoin/exccd/chaincfg/chainhash"
-	"github.com/exccoin/exccd/exccec"
-	"github.com/exccoin/exccd/exccjson"
-	"github.com/exccoin/exccd/exccutil"
-	"github.com/exccoin/exccd/hdkeychain"
-	"github.com/exccoin/exccd/txscript"
-	"github.com/exccoin/exccd/wire"
-	"github.com/exccoin/exccwallet/chain"
-	"github.com/exccoin/exccwallet/errors"
-	"github.com/exccoin/exccwallet/loader"
-	"github.com/exccoin/exccwallet/netparams"
-	"github.com/exccoin/exccwallet/p2p"
-	"github.com/exccoin/exccwallet/spv"
-	"github.com/exccoin/exccwallet/wallet"
-	"github.com/exccoin/exccwallet/wallet/txauthor"
-	"github.com/exccoin/exccwallet/wallet/txrules"
-	walletseed "github.com/exccoin/exccwallet/walletseed"
+	"github.com/EXCCoin/exccd/addrmgr"
+	stake "github.com/EXCCoin/exccd/blockchain/stake"
+	"github.com/EXCCoin/exccd/chaincfg"
+	chainhash "github.com/EXCCoin/exccd/chaincfg/chainhash"
+	"github.com/majudev/excc-mobilewallet/exccec"
+	"github.com/EXCCoin/exccd/exccjson"
+	"github.com/EXCCoin/exccd/exccutil"
+	"github.com/EXCCoin/exccd/hdkeychain"
+	"github.com/EXCCoin/exccd/txscript"
+	"github.com/EXCCoin/exccd/wire"
+	"github.com/EXCCoin/exccwallet/chain"
+	"github.com/majudev/excc-mobilewallet/errors"
+	"github.com/EXCCoin/exccwallet/loader"
+	"github.com/EXCCoin/exccwallet/netparams"
+	/*"github.com/EXCCoin/exccwallet/p2p"*/
+	/*"github.com/EXCCoin/exccwallet/spv"*/
+	"github.com/EXCCoin/exccwallet/wallet"
+	"github.com/EXCCoin/exccwallet/wallet/txauthor"
+	"github.com/EXCCoin/exccwallet/wallet/txrules"
+	walletseed "github.com/EXCCoin/exccwallet/walletseed"
 	"github.com/decred/slog"
 )
 
@@ -49,11 +49,11 @@ type LibWallet struct {
 	dbDriver      string
 	wallet        *wallet.Wallet
 	rpcClient     *chain.RPCClient
-	spvSyncer     *spv.Syncer
+	/*spvSyncer     *spv.Syncer*/
 	loader        *loader.Loader
 	mu            sync.Mutex
 	activeNet     *netparams.Params
-	syncResponses []SpvSyncResponse
+	/*syncResponses []SpvSyncResponse*/
 }
 
 func NewLibWallet(homeDir string, dbDriver string, netType string) *LibWallet {
@@ -276,11 +276,11 @@ func (lw *LibWallet) StartRPCClient(rpcHost string, rpcUser string, rpcPass stri
 	return nil
 }
 
-func (lw *LibWallet) AddSyncResponse(syncResponse SpvSyncResponse) {
+/*func (lw *LibWallet) AddSyncResponse(syncResponse SpvSyncResponse) {
 	lw.syncResponses = append(lw.syncResponses, syncResponse)
-}
+}*/
 
-func (lw *LibWallet) SpvSync(peerAddresses string) error {
+/*func (lw *LibWallet) SpvSync(peerAddresses string) error {
 	wallet, ok := lw.loader.LoadedWallet()
 	if !ok {
 		return errors.New(ErrWalletNotLoaded)
@@ -397,7 +397,7 @@ func (lw *LibWallet) SpvSync(peerAddresses string) error {
 		}
 	}()
 	return nil
-}
+}*/
 
 func (lw *LibWallet) RescanPoint() []byte {
 	rescanPoint, err := lw.wallet.RescanPoint()
